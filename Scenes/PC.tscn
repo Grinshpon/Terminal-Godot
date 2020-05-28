@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Terminal.gd" type="Script" id=3]
 
 [sub_resource type="QuadMesh" id=1]
-size = Vector2( 1.6, 1 )
+size = Vector2( 1.458, 1 )
 
 [sub_resource type="SpatialMaterial" id=2]
 

@@ -1,7 +1,7 @@
 extends MeshInstance
 
-const width := 320
-const height := 200
+export var width := 280
+export var height := 192
 onready var bits := width*height
 
 const pix_on := Color(0.0,1.0,0.0)
@@ -29,6 +29,8 @@ var show_cursor := true
 var blink := 0.0
 
 func _ready() -> void:
+  mesh.size.x = float(width)/height
+  print(width, "x", height, ", ", float(width)/height, ", ", bits)
   vram = BitMap.new()
   vram.create(Vector2(width,height))
   buf = Image.new()
@@ -43,18 +45,18 @@ func _ready() -> void:
 
 func clear() -> void:
   for y in range(height):
-    for x in range(width):
-      buf.set_pixel(x,y,pix_off)
+    for x in range(0,width,2):
+      buf.set_pixel(x+int(skip_rows),y,pix_off)
 
 func set_pixel(x: int, y: int) -> void:
   buf.set_pixel(x,y,pix_on)
 
 func init_draw() -> void:
+  skip_rows = !skip_rows
   buf.lock()
   #clear()
 
 func close_draw() -> void:
-  skip_rows = !skip_rows
   for y in range(height):
     for x in range(0,width,2):
       if vram.get_bit(Vector2(x+int(skip_rows),y)):
